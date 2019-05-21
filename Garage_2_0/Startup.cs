@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Garage_2_0.Models;
 
 namespace Garage_2_0
 {
@@ -33,6 +35,9 @@ namespace Garage_2_0
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddDbContext<Garage_2_0Context>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Garage_2_0Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
