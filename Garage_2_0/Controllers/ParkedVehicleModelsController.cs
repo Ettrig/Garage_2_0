@@ -48,6 +48,13 @@ namespace Garage_2_0.Controllers
             return View();
         }
 
+        // GET: ParkedVehicleModels/ParkVehicle
+        public IActionResult ParkVehicle()
+        {
+            return View();
+        }
+
+
         // POST: ParkedVehicleModels/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
