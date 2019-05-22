@@ -4,16 +4,17 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detaljvy över parkerat fordon</h1>
 
 <div>
-    <h4>ParkedVehicleModel</h4>
+    @*<h4>Detaljvy över parkerat fordon</h4>*@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
+            @*@Html.DisplayNameFor(model => model.Type)*@
+            Fordonstyp 
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Type)
         </dd>
         <dt class = "col-sm-2">
@@ -23,43 +24,50 @@
             @Html.DisplayFor(model => model.RegNr)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
+            @*@Html.DisplayNameFor(model => model.Color)*@
+            Färg
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Color)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Brand)
+            @*@Html.DisplayNameFor(model => model.Brand)*@
+            Märke
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Brand)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Model)
+            @*@Html.DisplayNameFor(model => model.Model)*@
+            Modell
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Model)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NoWheels)
+            @*@Html.DisplayNameFor(model => model.NoWheels)*@
+            Antal hjul
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NoWheels)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FreeText)
+            @*@Html.DisplayNameFor(model => model.FreeText)*@
+            Fritext
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FreeText)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ParkedIn)
+            @*@Html.DisplayNameFor(model => model.ParkedIn)*@
+            Starttid
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ParkedIn)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ParkedOut)
+            @*@Html.DisplayNameFor(model => model.ParkedOut)*@
+            Sluttid
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ParkedOut)
@@ -67,6 +75,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Ändra</a> |
     <a asp-action="Index">Tillbaka till listan över parkerade fordon</a>
 </div>
