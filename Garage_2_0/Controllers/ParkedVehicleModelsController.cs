@@ -91,7 +91,7 @@ namespace Garage_2_0.Controllers
                 parkedVehicleModel.NoWheels = parkVehicleModel.NoWheels;
                 parkedVehicleModel.FreeText = parkVehicleModel.FreeText;
                 parkedVehicleModel.ParkedIn = DateTime.Now;
-                parkedVehicleModel.ParkedOut = DateTime.Now; // Dummy, change to something obviously wrong
+                parkedVehicleModel.ParkedOut = DateTime.Parse("12/31/9999 23:59:59");
 
                 _context.Add(parkedVehicleModel);
                 await _context.SaveChangesAsync();
