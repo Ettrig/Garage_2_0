@@ -64,6 +64,35 @@ namespace Garage_2_0.Controllers
             return View(parkedVehicleModel);
         }
 
+        // POST: ParkedVehicleModels/ParkVehicle
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ParkVehicle([Bind("Id,Type,RegNr,Color,Brand,Model,NoWheels,FreeText")] ParkVehicleModel parkVehicleModel)
+        {
+            ParkedVehicleModel parkedVehicleModel = new ParkedVehicleModel();
+
+            if (ModelState.IsValid)
+            {
+                parkedVehicleModel.Id = parkVehicleModel.Id;
+                parkedVehicleModel.Type = parkVehicleModel.Type;
+                parkedVehicleModel.RegNr = parkVehicleModel.RegNr;
+                parkedVehicleModel.Color = parkVehicleModel.Color;
+                parkedVehicleModel.Brand = parkVehicleModel.Brand;
+                parkedVehicleModel.Model = parkVehicleModel.Model;
+                parkedVehicleModel.NoWheels = parkVehicleModel.NoWheels;
+                parkedVehicleModel.FreeText = parkVehicleModel.FreeText;
+                parkedVehicleModel.ParkedIn = DateTime.Now;
+                parkedVehicleModel.ParkedOut = DateTime.Now; // Dummy, change to something obviously wrong
+
+                _context.Add(parkedVehicleModel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(parkVehicleModel);
+        }
+
         // GET: ParkedVehicleModels/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
