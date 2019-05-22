@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Garage_2_0.Models
 {
-    public enum VehicleType { Car, Airplane, Motorcycle, Boat};  
+    public enum VehicleType { Bil, Båt, Flygplan, Motorcycel};  
 
     public class ParkedVehicleModel
     {
