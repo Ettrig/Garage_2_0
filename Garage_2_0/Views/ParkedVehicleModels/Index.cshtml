@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Garage_2_0.Models.ParkedVehicleModel>
+﻿@model IEnumerable<Garage_2_0.Models.Vehicle>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>Fordonstyp</th>
-        <th>F
+        <th>
             @Html.DisplayNameFor(model => model.RegNr)
         </th>
             <th>Färg</th>
@@ -34,7 +34,8 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Ändra</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Detaljvy</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a> |
+                <a asp-action="CheckOut" asp-route-id="@item.Id">Checka ut</a>
             </td>
         </tr>
 }

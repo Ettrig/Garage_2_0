@@ -9,7 +9,7 @@ namespace Garage_2_0.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ParkedVehicleModel",
+                name: "Vehicles",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -26,14 +26,14 @@ namespace Garage_2_0.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ParkedVehicleModel", x => x.Id);
+                    table.PrimaryKey("PK_Vehicles", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ParkedVehicleModel");
+                name: "Vehicles");
         }
     }
 }

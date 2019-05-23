@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage_2_0.Migrations
 {
     [DbContext(typeof(Garage_2_0Context))]
-    [Migration("20190521140747_Init")]
-    partial class Init
+    [Migration("20190523115240_OnModelCreating")]
+    partial class OnModelCreating
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace Garage_2_0.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Garage_2_0.Models.ParkedVehicleModel", b =>
+            modelBuilder.Entity("Garage_2_0.Models.Vehicle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,22 @@ namespace Garage_2_0.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ParkedVehicleModel");
+                    b.ToTable("Vehicles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "Volvo",
+                            Color = "Grön",
+                            FreeText = "Hejsan",
+                            Model = "Amazon",
+                            NoWheels = 4,
+                            ParkedIn = new DateTime(2019, 5, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            ParkedOut = new DateTime(9999, 12, 31, 23, 59, 59, 999, DateTimeKind.Unspecified).AddTicks(9999),
+                            RegNr = "ABC123",
+                            Type = 0
+                        });
                 });
 #pragma warning restore 612, 618
         }

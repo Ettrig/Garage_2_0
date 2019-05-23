@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Garage_2_0.Models
 {
-    public class ParkVehicleModel
+    public class Vehicle
     {
         public int Id { get; set; }
         public VehicleType Type { get; set; }
@@ -15,5 +15,7 @@ namespace Garage_2_0.Models
         public string Model { get; set; }
         public int NoWheels { get; set; }
         public string FreeText { get; set; }
+        public DateTime ParkedIn { get; set; }
+        public DateTime ParkedOut { get; set; }
     }
 }
