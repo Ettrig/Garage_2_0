@@ -17,6 +17,7 @@
             @Html.DisplayNameFor(model => model.RegNr)
         </th>
             <th>Färg</th>
+            <th>Parkerad Tid</th>
         </tr>
     </thead>
     <tbody>
@@ -31,6 +32,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
+            <td>
+                @item.ParkedOut.Subtract(item.ParkedIn)
+            </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Ändra</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Detaljvy</a> |
