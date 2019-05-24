@@ -21,7 +21,8 @@ namespace Garage_2_0.Controllers
         // GET: ParkedVehicleModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ParkedVehicleModel.ToListAsync());
+            var m = await _context.Vehicles.ToListAsync();
+            return View(m);
         }
 
         // GET: ParkedVehicleModels/Details/5
@@ -32,7 +33,7 @@ namespace Garage_2_0.Controllers
                 return NotFound();
             }
 
-            var parkedVehicleModel = await _context.ParkedVehicleModel
+            var parkedVehicleModel = await _context.Vehicles
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (parkedVehicleModel == null)
             {
@@ -48,12 +49,19 @@ namespace Garage_2_0.Controllers
             return View();
         }
 
+        // GET: ParkedVehicleModels/ParkVehicle
+        public IActionResult ParkVehicle()
+        {
+            return View();
+        }
+
+
         // POST: ParkedVehicleModels/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Type,RegNr,Color,Brand,Model,NoWheels,FreeText,ParkedIn,ParkedOut")] ParkedVehicleModel parkedVehicleModel)
+        public async Task<IActionResult> Create([Bind("Id,Type,RegNr,Color,Brand,Model,NoWheels,FreeText,ParkedIn,ParkedOut")] Vehicle parkedVehicleModel)
         {
             if (ModelState.IsValid)
             {
@@ -64,6 +72,35 @@ namespace Garage_2_0.Controllers
             return View(parkedVehicleModel);
         }
 
+        // POST: ParkedVehicleModels/ParkVehicle
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ParkVehicle([Bind("Id,Type,RegNr,Color,Brand,Model,NoWheels,FreeText")] ParkVehicleViewModel parkVehicleModel)
+        {
+            Vehicle parkedVehicleModel = new Vehicle();
+
+            if (ModelState.IsValid)
+            {
+                parkedVehicleModel.Id = parkVehicleModel.Id;
+                parkedVehicleModel.Type = parkVehicleModel.Type;
+                parkedVehicleModel.RegNr = parkVehicleModel.RegNr;
+                parkedVehicleModel.Color = parkVehicleModel.Color;
+                parkedVehicleModel.Brand = parkVehicleModel.Brand;
+                parkedVehicleModel.Model = parkVehicleModel.Model;
+                parkedVehicleModel.NoWheels = parkVehicleModel.NoWheels;
+                parkedVehicleModel.FreeText = parkVehicleModel.FreeText;
+                parkedVehicleModel.ParkedIn = DateTime.Now;
+                parkedVehicleModel.ParkedOut = DateTime.Parse("12/31/9999 23:59:59");
+
+                _context.Add(parkedVehicleModel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(parkVehicleModel);
+        }
+
         // GET: ParkedVehicleModels/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -72,7 +109,7 @@ namespace Garage_2_0.Controllers
                 return NotFound();
             }
 
-            var parkedVehicleModel = await _context.ParkedVehicleModel.FindAsync(id);
+            var parkedVehicleModel = await _context.Vehicles.FindAsync(id);
             if (parkedVehicleModel == null)
             {
                 return NotFound();
@@ -85,7 +122,7 @@ namespace Garage_2_0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Type,RegNr,Color,Brand,Model,NoWheels,FreeText,ParkedIn,ParkedOut")] ParkedVehicleModel parkedVehicleModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Type,RegNr,Color,Brand,Model,NoWheels,FreeText,ParkedIn,ParkedOut")] Vehicle parkedVehicleModel)
         {
             if (id != parkedVehicleModel.Id)
             {
@@ -115,6 +152,43 @@ namespace Garage_2_0.Controllers
             return View(parkedVehicleModel);
         }
 
+        // Copied from POST ParkedVehicleModels/Edit/5 
+        // POST/GET??: ParkedVehicleModels/CheckOut/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CheckOut(int id)
+        {
+
+            var vehicle = await _context.Vehicles
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            vehicle.ParkedOut = DateTime.Now; 
+
+            try
+            {
+                _context.Update(vehicle);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ParkedVehicleModelExists(vehicle.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: ParkedVehicleModels/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -123,7 +197,7 @@ namespace Garage_2_0.Controllers
                 return NotFound();
             }
 
-            var parkedVehicleModel = await _context.ParkedVehicleModel
+            var parkedVehicleModel = await _context.Vehicles
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (parkedVehicleModel == null)
             {
@@ -138,15 +212,15 @@ namespace Garage_2_0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var parkedVehicleModel = await _context.ParkedVehicleModel.FindAsync(id);
-            _context.ParkedVehicleModel.Remove(parkedVehicleModel);
+            var parkedVehicleModel = await _context.Vehicles.FindAsync(id);
+            _context.Vehicles.Remove(parkedVehicleModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ParkedVehicleModelExists(int id)
         {
-            return _context.ParkedVehicleModel.Any(e => e.Id == id);
+            return _context.Vehicles.Any(e => e.Id == id);
         }
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage_2_0.Migrations
 {
     [DbContext(typeof(Garage_2_0Context))]
-    [Migration("20190522061807_Initial")]
-    partial class Initial
+    [Migration("20190523113401_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace Garage_2_0.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Garage_2_0.Models.ParkedVehicleModel", b =>
+            modelBuilder.Entity("Garage_2_0.Models.Vehicle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace Garage_2_0.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ParkedVehicleModel");
+                    b.ToTable("Vehicles");
                 });
 #pragma warning restore 612, 618
         }
