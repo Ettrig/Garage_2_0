@@ -60,6 +60,7 @@ namespace Garage_2_0.Migrations
                             ParkedOut = new DateTime(9999, 12, 31, 23, 59, 59, 999, DateTimeKind.Unspecified).AddTicks(9999),
                             RegNr = "ABC123",
                             Type = 0
+
                         });
                 });
 #pragma warning restore 612, 618
