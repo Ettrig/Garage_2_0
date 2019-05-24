@@ -62,13 +62,13 @@
             Sluttid
         </dt>
         <dd class="col-sm-10">
-           @Model.ParkedOut.Subtract(Model.ParkedIn)
+            @Html.DisplayFor(model => model.ParkedIn)
         </dd>
         <dt class="col-sm-2">
             Parkerad tid
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ParkedIn)
+           @Model.ParkedOut.Subtract(Model.ParkedIn)
         </dd>
     </dl>
 </div>
