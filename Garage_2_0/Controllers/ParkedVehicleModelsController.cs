@@ -18,13 +18,13 @@ namespace Garage_2_0.Controllers
             _context = context;
         }
 
-        // GET: ParkedVehicleModels
+        //GET: ParkedVehicleModels
         public async Task<IActionResult> Index()
         {
             var m = await _context.Vehicles.ToListAsync();
             return View(m);
         }
-
+       
         // GET: ParkedVehicleModels/Details/5
         public async Task<IActionResult> Details(int? id)
         {

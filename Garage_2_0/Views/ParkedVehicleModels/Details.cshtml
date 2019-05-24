@@ -11,66 +11,64 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @*@Html.DisplayNameFor(model => model.Type)*@
             Fordonstyp 
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Type)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.RegNr)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RegNr)
         </dd>
         <dt class = "col-sm-2">
-            @*@Html.DisplayNameFor(model => model.Color)*@
             Färg
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Color)
         </dd>
         <dt class = "col-sm-2">
-            @*@Html.DisplayNameFor(model => model.Brand)*@
             Märke
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Brand)
         </dd>
         <dt class = "col-sm-2">
-            @*@Html.DisplayNameFor(model => model.Model)*@
             Modell
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Model)
         </dd>
         <dt class = "col-sm-2">
-            @*@Html.DisplayNameFor(model => model.NoWheels)*@
             Antal hjul
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NoWheels)
         </dd>
         <dt class = "col-sm-2">
-            @*@Html.DisplayNameFor(model => model.FreeText)*@
             Fritext
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FreeText)
         </dd>
         <dt class = "col-sm-2">
-            @*@Html.DisplayNameFor(model => model.ParkedIn)*@
             Starttid
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ParkedIn)
         </dd>
         <dt class = "col-sm-2">
-            @*@Html.DisplayNameFor(model => model.ParkedOut)*@
             Sluttid
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ParkedOut)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParkedIn)
+        </dd>
+        <dt class="col-sm-2">
+            Parkerad tid
+        </dt>
+        <dd class="col-sm-10">
+           @Model.ParkedOut.Subtract(Model.ParkedIn)
         </dd>
     </dl>
 </div>
