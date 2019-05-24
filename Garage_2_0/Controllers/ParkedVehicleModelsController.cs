@@ -152,15 +152,9 @@ namespace Garage_2_0.Controllers
             return View(parkedVehicleModel);
         }
 
-        // Copied from POST ParkedVehicleModels/Edit/5 
         // POST/GET??: ParkedVehicleModels/CheckOut/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
         public async Task<IActionResult> CheckOut(int id)
         {
-
             var vehicle = await _context.Vehicles
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vehicle == null)
@@ -186,7 +180,7 @@ namespace Garage_2_0.Controllers
                     throw;
                 }
             }
-            return RedirectToAction(nameof(Index));
+            return View(vehicle);
         }
 
         // GET: ParkedVehicleModels/Delete/5

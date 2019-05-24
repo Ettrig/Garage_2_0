@@ -1,0 +1,30 @@
+﻿@model Garage_2_0.Models.Vehicle
+
+@{
+    ViewData["Title"] = "CheckOut";
+}
+
+<h1>Utcheckning av fordon lyckades</h1>
+
+<div>
+    @*<h4>Detaljvy över parkerat fordon</h4>*@
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RegNr)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RegNr)
+        </dd>
+        <dt class = "col-sm-2">
+            @*@Html.DisplayNameFor(model => model.ParkedOut)*@
+            Sluttid
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ParkedOut)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Tillbaka till listan över parkerade fordon</a>
+</div>
