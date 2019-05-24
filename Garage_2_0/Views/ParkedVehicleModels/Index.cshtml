@@ -21,7 +21,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-    if ((item.ParkedOut == DateTime.MaxValue))
+    if (item.ParkedOut == DateTime.Parse("9999-12-31"))
     {
         <tr>
             <td>
@@ -37,7 +37,7 @@
                 <a asp-action="Edit" asp-route-id="@item.Id">Ändra</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Detaljvy</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a> |
-                @if (item.ParkedOut != DateTime.MaxValue)
+                @if (item.ParkedOut != DateTime.Parse("9999-12-31"))
                 {<span>Utcheckad</span> }
                 else
                 {<a asp-action="CheckOut" asp-route-id="@item.Id">Checka ut</a>}

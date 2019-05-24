@@ -93,7 +93,7 @@ namespace Garage_2_0.Controllers
                 vehicle.NoWheels = parkVehicleModel.NoWheels;
                 vehicle.FreeText = parkVehicleModel.FreeText;
                 vehicle.ParkedIn = DateTime.Now;
-                vehicle.ParkedOut = DateTime.MaxValue;
+                vehicle.ParkedOut = DateTime.Parse("9999-12-31");
 
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
