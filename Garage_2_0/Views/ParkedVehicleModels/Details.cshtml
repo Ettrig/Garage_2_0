@@ -10,8 +10,8 @@
     @*<h4>Detaljvy över parkerat fordon</h4>*@
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            Fordonstyp
+        <dt class = "col-sm-2">
+            Fordonstyp 
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Type)
@@ -22,49 +22,47 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RegNr)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             Färg
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Color)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             Märke
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Brand)
         </dd>
-        <dt class="col-sm-2">
-            @*@Html.DisplayNameFor(model => model.Model)*@
+        <dt class = "col-sm-2">
             Modell
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Model)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             Antal hjul
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NoWheels)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             Fritext
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FreeText)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             Starttid
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ParkedIn)
         </dd>
-        <dt class="col-sm-2">
-            @*@Html.DisplayNameFor(model => model.ParkedOut)*@
+        <dt class = "col-sm-2">
             Sluttid
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ParkedOut)
+           @Model.ParkedOut.Subtract(Model.ParkedIn)
         </dd>
         <dt class="col-sm-2">
             Parkerad tid
