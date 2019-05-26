@@ -81,8 +81,7 @@ namespace Garage_2_0.Controllers
         {
             Vehicle vehicle = new Vehicle();
 
-            Vehicle sameRegNr = _context.Vehicles.FirstOrDefault(v => v.RegNr == parkVehicleModel.RegNr); 
-            if (ModelState.IsValid && sameRegNr==null)
+            if (ModelState.IsValid && !RegNoIsParked(parkVehicleModel.RegNr))
             {
                 vehicle.Id = parkVehicleModel.Id;
                 vehicle.Type = parkVehicleModel.Type;
@@ -93,7 +92,7 @@ namespace Garage_2_0.Controllers
                 vehicle.NoWheels = parkVehicleModel.NoWheels;
                 vehicle.FreeText = parkVehicleModel.FreeText;
                 vehicle.ParkedIn = DateTime.Now;
-                vehicle.ParkedOut = DateTime.Parse("9999-12-31");
+                vehicle.ParkedOut = DateTime.Parse("9999-12-31"); // That is: has not checked out
 
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
@@ -214,7 +213,12 @@ namespace Garage_2_0.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ParkedVehicleModelExists(int id)
+        private bool RegNoIsParked( string license )
+        {
+            return _context.Vehicles.Any(v => v.RegNr == license && v.ParkedOut == DateTime.Parse("9999-12-31"));
+        }
+
+        private bool ParkedVehicleModelExists(int id) // Based on old model name, accepts both parked and removed vehicles
         {
             return _context.Vehicles.Any(e => e.Id == id);
         }

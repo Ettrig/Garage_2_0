@@ -35,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
-                @item.ParkedOut.Subtract(item.ParkedIn)
+                @DateTime.Now.Subtract(item.ParkedIn)
             </td>
 
             <td>
