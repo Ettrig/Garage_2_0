@@ -22,6 +22,8 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
+    if (item.ParkedOut == DateTime.Parse("9999-12-31"))
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
@@ -40,9 +42,13 @@
                 <a asp-action="Edit" asp-route-id="@item.Id">Ändra</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Detaljvy</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a> |
-                <a asp-action="CheckOut" asp-route-id="@item.Id">Checka ut</a>
+                @if (item.ParkedOut != DateTime.Parse("9999-12-31"))
+                {<span>Utcheckad</span> }
+                else
+                {<a asp-action="CheckOut" asp-route-id="@item.Id">Checka ut</a>}
             </td>
         </tr>
+    }
 }
     </tbody>
 </table>

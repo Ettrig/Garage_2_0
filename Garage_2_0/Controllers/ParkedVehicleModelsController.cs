@@ -61,15 +61,15 @@ namespace Garage_2_0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Type,RegNr,Color,Brand,Model,NoWheels,FreeText,ParkedIn,ParkedOut")] Vehicle parkedVehicleModel)
+        public async Task<IActionResult> Create([Bind("Id,Type,RegNr,Color,Brand,Model,NoWheels,FreeText,ParkedIn,ParkedOut")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(parkedVehicleModel);
+                _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(parkedVehicleModel);
+            return View(vehicle);
         }
 
         // POST: ParkedVehicleModels/ParkVehicle
@@ -79,25 +79,26 @@ namespace Garage_2_0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ParkVehicle([Bind("Id,Type,RegNr,Color,Brand,Model,NoWheels,FreeText")] ParkVehicleViewModel parkVehicleModel)
         {
-            Vehicle parkedVehicleModel = new Vehicle();
+            Vehicle vehicle = new Vehicle();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !RegNoIsParked(parkVehicleModel.RegNr))
             {
-                parkedVehicleModel.Id = parkVehicleModel.Id;
-                parkedVehicleModel.Type = parkVehicleModel.Type;
-                parkedVehicleModel.RegNr = parkVehicleModel.RegNr;
-                parkedVehicleModel.Color = parkVehicleModel.Color;
-                parkedVehicleModel.Brand = parkVehicleModel.Brand;
-                parkedVehicleModel.Model = parkVehicleModel.Model;
-                parkedVehicleModel.NoWheels = parkVehicleModel.NoWheels;
-                parkedVehicleModel.FreeText = parkVehicleModel.FreeText;
-                parkedVehicleModel.ParkedIn = DateTime.Now;
-                parkedVehicleModel.ParkedOut = DateTime.Parse("12/31/9999 23:59:59");
+                vehicle.Id = parkVehicleModel.Id;
+                vehicle.Type = parkVehicleModel.Type;
+                vehicle.RegNr = parkVehicleModel.RegNr;
+                vehicle.Color = parkVehicleModel.Color;
+                vehicle.Brand = parkVehicleModel.Brand;
+                vehicle.Model = parkVehicleModel.Model;
+                vehicle.NoWheels = parkVehicleModel.NoWheels;
+                vehicle.FreeText = parkVehicleModel.FreeText;
+                vehicle.ParkedIn = DateTime.Now;
+                vehicle.ParkedOut = DateTime.Parse("9999-12-31"); // That is: has not checked out
 
-                _context.Add(parkedVehicleModel);
+                _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            // Provide error feed-back
             return View(parkVehicleModel);
         }
 
@@ -212,7 +213,12 @@ namespace Garage_2_0.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ParkedVehicleModelExists(int id)
+        private bool RegNoIsParked( string license )
+        {
+            return _context.Vehicles.Any(v => v.RegNr == license && v.ParkedOut == DateTime.Parse("9999-12-31"));
+        }
+
+        private bool ParkedVehicleModelExists(int id) // Based on old model name, accepts both parked and removed vehicles
         {
             return _context.Vehicles.Any(e => e.Id == id);
         }
