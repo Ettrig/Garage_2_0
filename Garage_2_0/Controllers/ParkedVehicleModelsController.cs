@@ -11,17 +11,55 @@ namespace Garage_2_0.Controllers
 {
     public class ParkedVehicleModelsController : Controller
     {
-        private readonly Garage_2_0Context _context;
+        private readonly Garage_2_0Context db;
 
         public ParkedVehicleModelsController(Garage_2_0Context context)
         {
-            _context = context;
+            db = context;
+        }
+
+        // GET: RegNr                                           // sökning regnr, searchTerm innehåller sökvärdet, funktionen anropas från index.cshtml
+        [HttpPost]
+        public ActionResult Index(string searchTerm = null)
+        {
+            var model =
+                db.Vehicles
+                .OrderByDescending(v => v.RegNr)
+                .Where(v => searchTerm == null || v.RegNr.StartsWith(searchTerm) || v.RegNr.Contains(searchTerm))
+                .ToList();
+            return View(model);
+        }
+
+        public ActionResult Index1(string sortOrder)            // sort columns ascendiong/descending
+        {
+            ViewBag.FordonstypSortParm = String.IsNullOrEmpty(sortOrder) ? "Fordonstyp" : "";
+            ViewBag.RegnrSortParm = String.IsNullOrEmpty(sortOrder) ? "Regnr" : "";
+            ViewBag.ColorSortParm = String.IsNullOrEmpty(sortOrder) ? "Color" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var vehicles = from v in db.Vehicles
+                           select v;
+            switch (sortOrder)
+            {
+                case "Fordonstyp":
+                    vehicles = vehicles.OrderBy(v => v.Type);
+                    break;
+                case "Regnr":
+                    vehicles = vehicles.OrderBy(v => v.RegNr);
+                    break;
+                case "Color":
+                    vehicles = vehicles.OrderBy(v => v.Color);
+                    break;
+                default:
+                    vehicles = vehicles.OrderBy(v => v.ParkedIn);
+                    break;
+            }
+            return View(nameof(Index), vehicles.ToList());
         }
 
         //GET: ParkedVehicleModels
         public async Task<IActionResult> Index()
         {
-            var m = await _context.Vehicles.ToListAsync();
+            var m = await db.Vehicles.ToListAsync();
             return View(m);
         }
        
@@ -33,7 +71,7 @@ namespace Garage_2_0.Controllers
                 return NotFound();
             }
 
-            var parkedVehicleModel = await _context.Vehicles
+            var parkedVehicleModel = await db.Vehicles
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (parkedVehicleModel == null)
             {
@@ -65,8 +103,8 @@ namespace Garage_2_0.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(vehicle);
-                await _context.SaveChangesAsync();
+                db.Add(vehicle);
+                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(vehicle);
@@ -94,8 +132,8 @@ namespace Garage_2_0.Controllers
                 vehicle.ParkedIn = DateTime.Now;
                 vehicle.ParkedOut = DateTime.Parse("9999-12-31"); // That is: has not checked out
 
-                _context.Add(vehicle);
-                await _context.SaveChangesAsync();
+                db.Add(vehicle);
+                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             // Provide error feed-back
@@ -110,7 +148,7 @@ namespace Garage_2_0.Controllers
                 return NotFound();
             }
 
-            var parkedVehicleModel = await _context.Vehicles.FindAsync(id);
+            var parkedVehicleModel = await db.Vehicles.FindAsync(id);
             if (parkedVehicleModel == null)
             {
                 return NotFound();
@@ -134,8 +172,8 @@ namespace Garage_2_0.Controllers
             {
                 try
                 {
-                    _context.Update(parkedVehicleModel);
-                    await _context.SaveChangesAsync();
+                    db.Update(parkedVehicleModel);
+                    await db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -156,14 +194,14 @@ namespace Garage_2_0.Controllers
         // ParkedVehicleModels/CheckOut/5
         public async Task<IActionResult> CheckOut(int id)
         {
-            var vehicle = await _context.Vehicles
+            var vehicle = await db.Vehicles
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vehicle == null)
             {
                 return NotFound();
             }
 
-            var price = await _context.Prices
+            var price = await db.Prices
                 .FirstOrDefaultAsync(p => p.Type == vehicle.Type);
             if (price == null)
             {
@@ -174,8 +212,8 @@ namespace Garage_2_0.Controllers
 
             try
             {
-                _context.Update(vehicle);
-                await _context.SaveChangesAsync();
+                db.Update(vehicle);
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -206,7 +244,7 @@ namespace Garage_2_0.Controllers
                 return NotFound();
             }
 
-            var parkedVehicleModel = await _context.Vehicles
+            var parkedVehicleModel = await db.Vehicles
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (parkedVehicleModel == null)
             {
@@ -221,20 +259,20 @@ namespace Garage_2_0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var parkedVehicleModel = await _context.Vehicles.FindAsync(id);
-            _context.Vehicles.Remove(parkedVehicleModel);
-            await _context.SaveChangesAsync();
+            var parkedVehicleModel = await db.Vehicles.FindAsync(id);
+            db.Vehicles.Remove(parkedVehicleModel);
+            await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RegNoIsParked( string license )
         {
-            return _context.Vehicles.Any(v => v.RegNr == license && v.ParkedOut == DateTime.Parse("9999-12-31"));
+            return db.Vehicles.Any(v => v.RegNr == license && v.ParkedOut == DateTime.Parse("9999-12-31"));
         }
 
         private bool ParkedVehicleModelExists(int id) // Based on old model name, accepts both parked and removed vehicles
         {
-            return _context.Vehicles.Any(e => e.Id == id);
+            return db.Vehicles.Any(e => e.Id == id);
         }
     }
 }
