@@ -35,7 +35,12 @@
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
-                @DateTime.Now.Subtract(item.ParkedIn)
+                <span>Dagar</span>:
+                @DateTime.Now.Subtract(item.ParkedIn).Days
+                 <span>Tim</span>:
+                @DateTime.Now.Subtract(item.ParkedIn).Hours
+                 <span>Min</span>:
+                @DateTime.Now.Subtract(item.ParkedIn).Minutes
             </td>
 
             <td>
