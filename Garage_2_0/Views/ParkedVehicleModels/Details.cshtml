@@ -67,7 +67,12 @@
             Parkerad tid
         </dt>
         <dd class="col-sm-10">
-           @DateTime.Now.Subtract(Model.ParkedIn)
+            <span>Dagar</span>:
+            @DateTime.Now.Subtract(Model.ParkedIn).Days
+            <span>Tim</span>:
+            @DateTime.Now.Subtract(Model.ParkedIn).Hours
+            <span>Min</span>:
+            @DateTime.Now.Subtract(Model.ParkedIn).Minutes
         </dd>
     </dl>
 </div>
