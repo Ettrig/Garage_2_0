@@ -5,7 +5,6 @@
 }
 
 <h1>Detaljvy över parkerat fordon</h1>
-
 <div>
     @*<h4>Detaljvy över parkerat fordon</h4>*@
     <hr />
@@ -62,13 +61,18 @@
             Sluttid
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ParkedIn)
+            @Html.DisplayFor(model => model.ParkedOut)
         </dd>
         <dt class="col-sm-2">
             Parkerad tid
         </dt>
         <dd class="col-sm-10">
-           @Model.ParkedOut.Subtract(Model.ParkedIn)
+            <span>Dagar</span>:
+            @DateTime.Now.Subtract(Model.ParkedIn).Days
+            <span>Tim</span>:
+            @DateTime.Now.Subtract(Model.ParkedIn).Hours
+            <span>Min</span>:
+            @DateTime.Now.Subtract(Model.ParkedIn).Minutes
         </dd>
     </dl>
 </div>
