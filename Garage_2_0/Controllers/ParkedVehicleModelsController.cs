@@ -153,12 +153,19 @@ namespace Garage_2_0.Controllers
             return View(parkedVehicleModel);
         }
 
-        // POST/GET??: ParkedVehicleModels/CheckOut/5
+        // ParkedVehicleModels/CheckOut/5
         public async Task<IActionResult> CheckOut(int id)
         {
             var vehicle = await _context.Vehicles
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            var price = await _context.Prices
+                .FirstOrDefaultAsync(p => p.Type == vehicle.Type);
+            if (price == null)
             {
                 return NotFound();
             }
@@ -181,7 +188,14 @@ namespace Garage_2_0.Controllers
                     throw;
                 }
             }
-            return View(vehicle);
+
+            var receipt = new ReceiptViewModel();
+            receipt.Price = price.Price;
+            receipt.ParkedIn = vehicle.ParkedIn;
+            receipt.ParkedOut = DateTime.Now;
+            receipt.RegNr = vehicle.RegNr;
+            receipt.Cost = (DateTime.Now - vehicle.ParkedIn).Hours * price.Price; 
+            return View(receipt);
         }
 
         // GET: ParkedVehicleModels/Delete/5
