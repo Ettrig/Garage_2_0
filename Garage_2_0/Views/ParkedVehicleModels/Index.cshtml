@@ -7,7 +7,7 @@
 <h1>Lista över Parkerade Fordon</h1>
 
 <p>
-    <a asp-action="ParkVehicle">Parkera fordon</a>
+    <a asp-action="ParkVehicle">Checka in Fordon</a>
 </p>
 <table class="table">
     <thead>
@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
-                @item.ParkedOut.Subtract(item.ParkedIn)
+                @DateTime.Now.Subtract(item.ParkedIn)
             </td>
 
             <td>

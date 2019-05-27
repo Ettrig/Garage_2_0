@@ -5,7 +5,6 @@
 }
 
 <h1>Detaljvy över parkerat fordon</h1>
-
 <div>
     @*<h4>Detaljvy över parkerat fordon</h4>*@
     <hr />
@@ -68,7 +67,7 @@
             Parkerad tid
         </dt>
         <dd class="col-sm-10">
-           @Model.ParkedOut.Subtract(Model.ParkedIn)
+           @DateTime.Now.Subtract(Model.ParkedIn)
         </dd>
     </dl>
 </div>
