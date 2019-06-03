@@ -119,7 +119,10 @@ namespace Garage_2_0.Controllers
         {
             Vehicle vehicle = new Vehicle();
 
-            if (ModelState.IsValid && !RegNoIsParked(parkVehicleModel.RegNr))
+            if (RegNoIsParked(parkVehicleModel.RegNr))
+                ModelState.AddModelError("RegNr", "Det finns redan ett fordon med det här registreringsnumret i garaget");
+
+            if (ModelState.IsValid) 
             {
                 vehicle.Id = parkVehicleModel.Id;
                 vehicle.Type = parkVehicleModel.Type;
