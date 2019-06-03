@@ -234,8 +234,8 @@ namespace Garage_2_0.Controllers
             receipt.Price = price.Price;
             receipt.ParkedIn = vehicle.ParkedIn;
             receipt.ParkedOut = DateTime.Now;
-            receipt.RegNr = vehicle.RegNr;
-            receipt.Cost = (DateTime.Now - vehicle.ParkedIn).Hours * price.Price; 
+            receipt.RegNr = vehicle.RegNr; 
+            receipt.Cost = (int) Math.Round((DateTime.Now - vehicle.ParkedIn).TotalHours * price.Price); 
             return View(receipt);
         }
 
