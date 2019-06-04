@@ -19,7 +19,8 @@
     <a asp-action="ParkVehicle">Parkera fordon</a>
 </span>
 
-<table class="table">                                                   @*// sort columns*@
+<table class="table">
+    @*// sort columns*@
     <thead>
         <tr>
             <th>
@@ -39,38 +40,35 @@
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.ParkedOut == DateTime.Parse("9999-12-31"))
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Type)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RegNr)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Color)
-                    </td>
-                    <td>
-                        <span>Dagar</span>:
-                        @DateTime.Now.Subtract(item.ParkedIn).Days
-                        <span>Tim</span>:
-                        @DateTime.Now.Subtract(item.ParkedIn).Hours
-                        <span>Min</span>:
-                        @DateTime.Now.Subtract(item.ParkedIn).Minutes
-                    </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicleTypeClassId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegNr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    <span>Dagar</span>:
+                    @DateTime.Now.Subtract(item.ParkedIn).Days
+                    <span>Tim</span>:
+                    @DateTime.Now.Subtract(item.ParkedIn).Hours
+                    <span>Min</span>:
+                    @DateTime.Now.Subtract(item.ParkedIn).Minutes
+                </td>
 
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Ändra</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Detaljvy</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a> |
-                        @if (item.ParkedOut != DateTime.Parse("9999-12-31"))
-                        {<span>Utcheckad</span> }
-                        else
-                        {<a asp-action="CheckOut" asp-route-id="@item.Id">Checka ut</a>}
-                    </td>
-                </tr>
-            }
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Ändra</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detaljvy</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a> |
+                    <span>Utcheckad</span>
+                    else
+                    {<a asp-action="CheckOut" asp-route-id="@item.Id">Checka ut</a>}
+                </td>
+            </tr>
+
         }
     </tbody>
 </table>
