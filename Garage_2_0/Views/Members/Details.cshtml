@@ -21,7 +21,7 @@
         <dd class="col-md-10">
             @foreach (var vehicle in Model.Vehicles)
             {
-                <a asp-controller="Courses" asp-action="Details" asp-route-id="@vehicle.Id">
+                <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.Id">
                     @vehicle.RegNr
                 </a><br />
             }
