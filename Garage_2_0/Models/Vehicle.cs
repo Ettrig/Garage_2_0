@@ -16,6 +16,7 @@ namespace Garage_2_0.Models
         public DateTime ParkedIn { get; set; }
         
         public int MemberId { get; set; }
+        public Member Member { get; set; }
         public int VehicleTypeClassId { get; set; }
     }
 }
