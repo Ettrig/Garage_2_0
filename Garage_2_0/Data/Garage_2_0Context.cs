@@ -14,14 +14,17 @@ namespace Garage_2_0.Models
         {
         }
 
-        protected override void  OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Vehicle>().HasData(
-                 new Vehicle { Id = 1, Brand = "Volvo", Color = "Grön", FreeText = "Hejsan", Model = "Amazon", NoWheels = 4, ParkedIn = DateTime.Today, ParkedOut = DateTime.MaxValue, RegNr = "ABC123", Type = VehicleType.Bil }
-                );
-        }
+        //protected override void  OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Vehicle>().HasData(
+        //         new Vehicle { Id = 1, Brand = "Volvo", Color = "Grön", Model = "Amazon", NoWheels = 4, ParkedIn = DateTime.Today, RegNr = "ABC123", Type = VehicleType.Bil }
+        //        );
+        //}
 
         public DbSet<Vehicle> Vehicles{ get; set; }
+        public DbSet<Member> Members { get; set; }
+        public DbSet<VehicleTypeClass> VehicleTypeClass { get; set; }
+
 
         public DbSet<Prices> Prices { get; set; }
     }
