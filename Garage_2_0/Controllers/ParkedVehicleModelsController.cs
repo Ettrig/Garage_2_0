@@ -41,7 +41,7 @@ namespace Garage_2_0.Controllers
             switch (sortOrder)
             {
                 case "Fordonstyp":
-                    vehicles = vehicles.OrderBy(v => v.Type);
+                    vehicles = vehicles.OrderBy(v => v.VehicleTypeClassId);
                     break;
                 case "Regnr":
                     vehicles = vehicles.OrderBy(v => v.RegNr);
@@ -125,16 +125,13 @@ namespace Garage_2_0.Controllers
             if (ModelState.IsValid) 
             {
                 vehicle.Id = parkVehicleModel.Id;
-                vehicle.Type = parkVehicleModel.Type;
                 vehicle.RegNr = parkVehicleModel.RegNr;
                 vehicle.Color = parkVehicleModel.Color;
                 vehicle.Brand = parkVehicleModel.Brand;
                 vehicle.Model = parkVehicleModel.Model;
                 vehicle.NoWheels = parkVehicleModel.NoWheels;
-                vehicle.FreeText = parkVehicleModel.FreeText;
                 vehicle.ParkedIn = DateTime.Now;
-                vehicle.ParkedOut = DateTime.Parse("9999-12-31"); // That is: has not checked out
-
+                
                 db.Add(vehicle);
                 await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -195,49 +192,48 @@ namespace Garage_2_0.Controllers
         }
 
         // ParkedVehicleModels/CheckOut/5
-        public async Task<IActionResult> CheckOut(int id)
-        {
-            var vehicle = await db.Vehicles
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> CheckOut(int id)
+        //{
+        //    var vehicle = await db.Vehicles
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (vehicle == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var price = await db.Prices
-                .FirstOrDefaultAsync(p => p.Type == vehicle.Type);
-            if (price == null)
-            {
-                return NotFound();
-            }
+        //    var price = await db.Prices
+        //        .FirstOrDefaultAsync(p => p. == vehicle.VehicleTypeClassId);
+        //    if (price == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            vehicle.ParkedOut = DateTime.Now; 
 
-            try
-            {
-                db.Update(vehicle);
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ParkedVehicleModelExists(vehicle.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.Update(vehicle);
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ParkedVehicleModelExists(vehicle.Id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            var receipt = new ReceiptViewModel();
-            receipt.Price = price.Price;
-            receipt.ParkedIn = vehicle.ParkedIn;
-            receipt.ParkedOut = DateTime.Now;
-            receipt.RegNr = vehicle.RegNr;
-            receipt.Cost = (DateTime.Now - vehicle.ParkedIn).Hours * price.Price; 
-            return View(receipt);
-        }
+        //    var receipt = new ReceiptViewModel();
+        //    receipt.Price = price.Price;
+        //    receipt.ParkedIn = vehicle.ParkedIn;
+        //    receipt.ParkedOut = DateTime.Now;
+        //    receipt.RegNr = vehicle.RegNr;
+        //    receipt.Cost = (DateTime.Now - vehicle.ParkedIn).Hours * price.Price; 
+        //    return View(receipt);
+        //}
 
         // GET: ParkedVehicleModels/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -270,7 +266,7 @@ namespace Garage_2_0.Controllers
 
         private bool RegNoIsParked( string license )
         {
-            return db.Vehicles.Any(v => v.RegNr == license && v.ParkedOut == DateTime.Parse("9999-12-31"));
+            return db.Vehicles.Any(v => v.RegNr == license);
         }
 
         private bool ParkedVehicleModelExists(int id) // Based on old model name, accepts both parked and removed vehicles

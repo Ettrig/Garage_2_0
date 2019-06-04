@@ -13,12 +13,11 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Type" class="control-label">Fordonstyp</label>
-                @*<select asp-for="Type" class="form-control"></select>*@
                 <select asp-for="Type" asp-items="Html.GetEnumSelectList<VehicleType>()" class="form-control"></select>
                 <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="RegNr" class="control-label"></label>
                 <input asp-for="RegNr" class="form-control" />
@@ -45,19 +44,9 @@
                 <span asp-validation-for="NoWheels" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FreeText" class="control-label">Fri text</label>
-                <input asp-for="FreeText" class="form-control" />
-                <span asp-validation-for="FreeText" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="ParkedIn" class="control-label">Starttid</label>
                 <input asp-for="ParkedIn" class="form-control" />
                 <span asp-validation-for="ParkedIn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ParkedOut" class="control-label">Sluttid</label>
-                <input asp-for="ParkedOut" class="form-control" />
-                <span asp-validation-for="ParkedOut" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Spara ändringen" class="btn btn-primary" />
