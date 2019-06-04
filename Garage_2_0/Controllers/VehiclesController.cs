@@ -55,6 +55,10 @@ namespace Garage_2_0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NoWheels,ParkedIn,MemberId,VehicleTypeClassId")] Vehicle vehicle)
         {
+           
+            if (RegNoIsParked(vehicle.RegNr))
+                ModelState.AddModelError("RegNr", "Det finns redan ett fordon med det här registreringsnumret i garaget");
+
             if (ModelState.IsValid)
             {
                 _context.Add(vehicle);
@@ -62,6 +66,11 @@ namespace Garage_2_0.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(vehicle);
+        }
+
+        private bool RegNoIsParked(object regNr)
+        {
+            throw new NotImplementedException();
         }
 
         // GET: Vehicles/Edit/5
@@ -147,6 +156,10 @@ namespace Garage_2_0.Controllers
         private bool VehicleExists(int id)
         {
             return _context.Vehicles.Any(e => e.Id == id);
+        }
+        private bool RegNoIsParked(string license)
+        {
+            return _context.Vehicles.Any(v => v.RegNr == license);
         }
     }
 }

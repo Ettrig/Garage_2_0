@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage_2_0.Migrations
 {
     [DbContext(typeof(Garage_2_0Context))]
-    [Migration("20190527113132_Prices_local")]
-    partial class Prices_local
+    [Migration("20190604120209_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,19 @@ namespace Garage_2_0.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Garage_2_0.Models.Member", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Members");
+                });
 
             modelBuilder.Entity("Garage_2_0.Models.Prices", b =>
                 {
@@ -46,7 +59,7 @@ namespace Garage_2_0.Migrations
 
                     b.Property<string>("Color");
 
-                    b.Property<string>("FreeText");
+                    b.Property<int>("MemberId");
 
                     b.Property<string>("Model");
 
@@ -54,30 +67,45 @@ namespace Garage_2_0.Migrations
 
                     b.Property<DateTime>("ParkedIn");
 
-                    b.Property<DateTime>("ParkedOut");
-
                     b.Property<string>("RegNr");
 
-                    b.Property<int>("Type");
+                    b.Property<int>("VehicleTypeClassId");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vehicles");
+                    b.HasIndex("MemberId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Brand = "Volvo",
-                            Color = "Grön",
-                            FreeText = "Hejsan",
-                            Model = "Amazon",
-                            NoWheels = 4,
-                            ParkedIn = new DateTime(2019, 5, 27, 0, 0, 0, 0, DateTimeKind.Local),
-                            ParkedOut = new DateTime(9999, 12, 31, 23, 59, 59, 999, DateTimeKind.Unspecified).AddTicks(9999),
-                            RegNr = "ABC123",
-                            Type = 0
-                        });
+                    b.HasIndex("VehicleTypeClassId");
+
+                    b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("Garage_2_0.Models.VehicleTypeClass", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Price");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VehicleTypeClass");
+                });
+
+            modelBuilder.Entity("Garage_2_0.Models.Vehicle", b =>
+                {
+                    b.HasOne("Garage_2_0.Models.Member", "Member")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Garage_2_0.Models.VehicleTypeClass")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("VehicleTypeClassId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
