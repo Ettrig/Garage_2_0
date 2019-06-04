@@ -8,14 +8,14 @@ namespace Garage_2_0.Models
     public class Vehicle
     {
         public int Id { get; set; }
-        public VehicleType Type { get; set; }
         public string RegNr { get; set; }
         public string Color { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
         public int NoWheels { get; set; }
-        public string FreeText { get; set; }
         public DateTime ParkedIn { get; set; }
-        public DateTime ParkedOut { get; set; }
+        
+        public int MemberId { get; set; }
+        public int VehicleTypeClassId { get; set; }
     }
 }
