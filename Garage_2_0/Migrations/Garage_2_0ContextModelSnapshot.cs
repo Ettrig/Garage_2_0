@@ -95,7 +95,7 @@ namespace Garage_2_0.Migrations
 
             modelBuilder.Entity("Garage_2_0.Models.Vehicle", b =>
                 {
-                    b.HasOne("Garage_2_0.Models.Member")
+                    b.HasOne("Garage_2_0.Models.Member", "Member")
                         .WithMany("Vehicles")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade);
