@@ -40,6 +40,7 @@ namespace Garage_2_0.Data
                 // Populate VehicleTypeClass
                 var types = new Dictionary<string, int>() { { "Bil", 50 }, { "Motorcykel", 20 }, { "Båt", 100 }, { "Flygplan", 1000 }, { "Buss", 400 } };
                 var vehicleTypeClasses = new List<VehicleTypeClass>();
+
                 foreach (var type in types)
                 {
                     var vehicleTypeClass = new VehicleTypeClass()
@@ -53,33 +54,32 @@ namespace Garage_2_0.Data
 
 
                 var aToZ = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-                var brands = new List<string>() { "Volvo", "Ferrari", "BMW", "Mercedes", "Audi", "Ford", "Mini" };
-                var models = new List<string>() { "XC90", "Testarossa", "M3", "A100", "A5", "Focus", "Clubman" };
-
-                var randomBrand = rnd.Next(0, brands.Count - 1);
-                var brand = brands[randomBrand];
-                var model = models[randomBrand];
-
+                var brands = new List<string>() { "Volvo", "Ferrari", "BMW", "Mercedes", "Audi", "Ford", "Mini", "Boeing", "Nimbus" };
+                var models = new List<string>() { "XC90", "Testarossa", "M3", "Sport", "A5", "Mustang", "Clubman", "747", "Flybridge" };
                 var colors = new List<string>() { "Röd", "Blå", "Grön", "Blå", "Gul", "Silver", "Svart", "Vit" };
-                var color = colors[rnd.Next(0, colors.Count - 1)];
 
                 // Populate Vehicle
                 var vehicles = new List<Vehicle>();
                 foreach (var member in members)
                 {
-                    if (Faker.RandomNumber.Next(5) == 0)
+                    if (Faker.RandomNumber.Next(2) == 0)
                     {
                         foreach (var vehicleTypeClass in vehicleTypeClasses)
                         {
+                            var randomCarBrandsAndModel = rnd.Next(0, brands.Count);
+                            
                             var vehicle = new Vehicle()
                             {
                                 RegNr = "" + aToZ[rnd.Next(26)] + aToZ[rnd.Next(26)] + aToZ[rnd.Next(26)] + rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9),
-                                Color = color,
-                                Brand = brand,
-                                Model = model,
+                                Color = colors[rnd.Next(0, colors.Count)],
+                                Brand = brands[randomCarBrandsAndModel],
+                                Model = models[randomCarBrandsAndModel],
                                 Member = member,
                                 VehicleTypeClass = vehicleTypeClass,
-                                NoWheels = 4,
+                                NoWheels = vehicleTypeClass.Type == "Bil" ? 4 :
+                                            vehicleTypeClass.Type == "Motorcykel" ? 2 :
+                                            vehicleTypeClass.Type == "Buss" ? 18 :
+                                            vehicleTypeClass.Type == "Flygplan" ? 10 : 0,
                                 ParkedIn = DateTime.Now
                         };
                             vehicles.Add(vehicle);
