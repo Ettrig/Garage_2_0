@@ -18,12 +18,11 @@ namespace Garage_2_0.Data
             {
                 if (context.Members.Any())
                 {
-                    context.Vehicles.RemoveRange(context.Vehicles);
-                    context.Members.RemoveRange(context.Members);
-                    context.VehicleTypeClass.RemoveRange(context.VehicleTypeClass);
+                    return;
                 }
                 
                 var rnd = new Random();
+
 
                 // Populate Member
                 var members = new List<Member>();
@@ -36,6 +35,7 @@ namespace Garage_2_0.Data
                     members.Add(member);
                 }
                 context.AddRange(members);
+
 
                 // Populate VehicleTypeClass
                 var types = new Dictionary<string, int>() { { "Bil", 50 }, { "Motorcykel", 20 }, { "Båt", 100 }, { "Flygplan", 1000 }, { "Buss", 400 } };
@@ -57,6 +57,7 @@ namespace Garage_2_0.Data
                 var brands = new List<string>() { "Volvo", "Ferrari", "BMW", "Mercedes", "Audi", "Ford", "Mini", "Boeing", "Nimbus" };
                 var models = new List<string>() { "XC90", "Testarossa", "M3", "Sport", "A5", "Mustang", "Clubman", "747", "Flybridge" };
                 var colors = new List<string>() { "Röd", "Blå", "Grön", "Blå", "Gul", "Silver", "Svart", "Vit" };
+
 
                 // Populate Vehicle
                 var vehicles = new List<Vehicle>();
@@ -87,7 +88,6 @@ namespace Garage_2_0.Data
                     }
                 }
                 context.AddRange(vehicles);
-
                 context.SaveChanges();
             }
         }
