@@ -4,19 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Lista över fordonsklasser</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Skapa ny fordonsklass</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                @*@Html.DisplayNameFor(model => model.Type)*@
+                Fordonstyp
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @*@Html.DisplayNameFor(model => model.Price)*@
+                Pris/timme
             </th>
             <th></th>
         </tr>

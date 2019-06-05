@@ -19,6 +19,42 @@ namespace Garage_2_0.Controllers
         }
 
         // GET: Vehicles
+        [HttpPost]
+        public ActionResult Index(string searchTerm = null)
+        {
+            var model =
+                _context.Vehicles
+                .OrderByDescending(v => v.RegNr)
+                .Where(v => searchTerm == null || v.RegNr.StartsWith(searchTerm) || v.RegNr.Contains(searchTerm))
+                .ToList();
+            return View(model);
+        }
+
+        public ActionResult Index1(string sortOrder)
+        {
+            ViewBag.FordonstypSortParm = String.IsNullOrEmpty(sortOrder) ? "Fordonstyp" : "";
+            ViewBag.RegnrSortParm = String.IsNullOrEmpty(sortOrder) ? "Regnr" : "";
+            ViewBag.ColorSortParm = String.IsNullOrEmpty(sortOrder) ? "Color" : "";
+            //ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var vehicles = from v in _context.Vehicles
+                           select v;
+            switch (sortOrder)
+            {
+                case "Fordonstyp":
+                    vehicles = vehicles.OrderBy(v => v.VehicleTypeClassId);
+                    break;
+                case "Regnr":
+                    vehicles = vehicles.OrderByDescending(v => v.RegNr);
+                    break;
+                case "Color":
+                    vehicles = vehicles.OrderBy(v => v.Color);
+                    break;
+                default:
+                    vehicles = vehicles.OrderBy(v => v.RegNr);
+                    break;
+            }
+            return View(nameof(Index), vehicles.ToList());
+        }
         public async Task<IActionResult> Index()
         {
             return View(await _context.Vehicles.Include(v => v.VehicleType).ToListAsync());
@@ -43,7 +79,8 @@ namespace Garage_2_0.Controllers
             return View(vehicle);
         }
 
-        // GET: Vehicles/Create
+
+         // GET: Vehicles/Create
         public IActionResult Create()
         {
             return View();
