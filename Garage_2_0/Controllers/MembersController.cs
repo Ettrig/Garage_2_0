@@ -22,9 +22,24 @@ namespace Garage_2_0.Controllers
         public async Task<IActionResult> Index()
         {
                 return View(await _context.Members
-                    .Include(m => m.Vehicles).
-                    ToListAsync());
+                    .Include(m => m.Vehicles)
+                    .ToListAsync());
         }
+
+        // GET: RegNr                                           // sökning regnr, searchTerm innehåller sökvärdet, funktionen anropas från index.cshtml
+        [HttpPost]
+        public ActionResult Index(string searchTerm = null)
+        {
+            var model =
+                _context.Members
+                .OrderByDescending(m => m.Name)
+                .Where(m => searchTerm == null || m.Name.StartsWith(searchTerm) || m.Name.Contains(searchTerm))
+                .Include(m => m.Vehicles)
+                .ToList();
+            return View(model);
+        }
+
+
 
         // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)
