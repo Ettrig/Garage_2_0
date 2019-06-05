@@ -17,27 +17,9 @@
 
 
 <p>
-    <a asp-action="ParkVehicle" class="form-control">Parkera fordon</a>
+    <a asp-action="Create">Parkera fordon</a>
 </p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.ActionLink("Fordonstyp", "Index1", new { sortOrder = ViewBag.FordonstypSortParm })
-            </th>
-            <th>
-                @Html.ActionLink("Regnr", "Index1", new { sortOrder = ViewBag.RegnrSortParm })
-            </th>
-            <th>
-                @Html.ActionLink("Färg", "Index1", new { sortOrder = ViewBag.ColorSortParm })
-            </th>
-            <th>
-                @Html.ActionLink("Parkerad Tid", "Index1", new { sortOrder = ViewBag.DateSortParm })
-            </th>
-            <th></th>
-        </tr>
-                                    
+                                  
         <table class="table">
             <thead>
                 <tr>

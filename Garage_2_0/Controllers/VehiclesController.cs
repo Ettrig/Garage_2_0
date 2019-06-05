@@ -44,14 +44,14 @@ namespace Garage_2_0.Controllers
                     vehicles = vehicles.OrderBy(v => v.VehicleTypeClassId);
                     break;
                 case "Regnr":
-                    vehicles = vehicles.OrderBy(v => v.RegNr);
+                    vehicles = vehicles.OrderByDescending(v => v.RegNr);
                     break;
                 case "Color":
                     vehicles = vehicles.OrderBy(v => v.Color);
                     break;
-                //default:
-                //    vehicles = vehicles.OrderBy(v => v.ParkedIn);
-                //    break;
+                default:
+                    vehicles = vehicles.OrderBy(v => v.RegNr);
+                    break;
             }
             return View(nameof(Index), vehicles.ToList());
         }
@@ -78,7 +78,8 @@ namespace Garage_2_0.Controllers
             return View(vehicle);
         }
 
-        // GET: Vehicles/Create
+
+         // GET: Vehicles/Create
         public IActionResult Create()
         {
             return View();
