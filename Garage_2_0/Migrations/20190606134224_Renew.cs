@@ -2,7 +2,7 @@
 
 namespace Garage_2_0.Migrations
 {
-    public partial class init : Migration
+    public partial class Renew : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
