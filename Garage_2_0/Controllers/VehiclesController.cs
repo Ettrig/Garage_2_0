@@ -54,17 +54,15 @@ namespace Garage_2_0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NoWheels,ParkedIn,MemberId,VehicleTypeClassId")] Vehicle vehicle)
-              public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NoWheels,MemberId,VehicleTypeClassId")] Vehicle vehicle)
+        public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NoWheels,MemberId,VehicleTypeClassId")] Vehicle vehicle)
         {
-           
             if (RegNoIsParked(vehicle.RegNr))
                 ModelState.AddModelError("RegNr", "Det finns redan ett fordon med det här registreringsnumret i garaget");
 
             if (ModelState.IsValid)
             {
-                _context.Add(vehicle);
                 vehicle.ParkedIn = DateTime.Now;
+                _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
