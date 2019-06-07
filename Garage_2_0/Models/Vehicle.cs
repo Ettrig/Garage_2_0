@@ -24,5 +24,6 @@ namespace Garage_2_0.Models
         public Member Member { get; set; }
         public int VehicleTypeClassId { get; set; }
         public VehicleTypeClass VehicleTypeClass { get; set; }
+       
     }
 }
