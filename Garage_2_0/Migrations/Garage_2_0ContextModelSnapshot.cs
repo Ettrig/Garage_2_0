@@ -100,7 +100,7 @@ namespace Garage_2_0.Migrations
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Garage_2_0.Models.VehicleTypeClass", "VehicleType")
+                    b.HasOne("Garage_2_0.Models.VehicleTypeClass", "VehicleTypeClass")
                         .WithMany("Vehicles")
                         .HasForeignKey("VehicleTypeClassId")
                         .OnDelete(DeleteBehavior.Cascade);

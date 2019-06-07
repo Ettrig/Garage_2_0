@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage_2_0.Migrations
 {
     [DbContext(typeof(Garage_2_0Context))]
-    [Migration("20190605131717_Init2")]
-    partial class Init2
+    [Migration("20190607070711_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,7 +102,7 @@ namespace Garage_2_0.Migrations
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Garage_2_0.Models.VehicleTypeClass", "VehicleType")
+                    b.HasOne("Garage_2_0.Models.VehicleTypeClass", "VehicleTypeClass")
                         .WithMany("Vehicles")
                         .HasForeignKey("VehicleTypeClassId")
                         .OnDelete(DeleteBehavior.Cascade);
