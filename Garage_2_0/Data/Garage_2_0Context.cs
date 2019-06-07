@@ -14,6 +14,8 @@ namespace Garage_2_0.Models
         {
         }
 
+        public enum IndexTableSortState { NamnAscend, NamnDescend, AntalFordonAscend, AntalFordonDescend };
+
         //protected override void  OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    modelBuilder.Entity<Vehicle>().HasData(

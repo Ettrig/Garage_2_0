@@ -23,7 +23,24 @@ namespace Garage_2_0.Controllers
         {
                 return View(await _context.Members
                     .Include(m => m.Vehicles)
+                    .OrderBy(m => m.Name)
                     .ToListAsync());
+        }
+
+        public ActionResult IndexSort(string sortOrder)            // sort columns ascendiong/descending
+        {
+            ViewBag.NamnSortParm = String.IsNullOrEmpty(sortOrder) ? "Namn" : "";
+
+            var members = from m in _context.Members select m;
+
+            switch (sortOrder)
+            {
+                case "Namn":
+                    members = members.OrderBy(m => m.Name);
+                    break;
+                    //Vi behöver också sortera på antalet fordon
+            }
+            return View(nameof(Index), members.Include(m => m.Vehicles).ToList());
         }
 
         // GET: RegNr                                           // sökning regnr, searchTerm innehåller sökvärdet, funktionen anropas från index.cshtml
@@ -39,7 +56,40 @@ namespace Garage_2_0.Controllers
             return View(model);
         }
 
+        public ActionResult Index1(string columnToSort, Garage_2_0Context.IndexTableSortState sortState )            // sort columns ascendiong/descending
+        {
 
+            var members = from m in _context.Members select m;
+            members = members.Include(m => m.Vehicles);
+
+            if (columnToSort == "Namn")
+            {
+                if (sortState == Garage_2_0Context.IndexTableSortState.NamnAscend)
+                {
+                    members = members.OrderByDescending(m => m.Name);
+                    ViewBag.sortState = Garage_2_0Context.IndexTableSortState.NamnDescend;
+                }
+                else
+                {
+                    members = members.OrderBy(m => m.Name);
+                    ViewBag.sortState = Garage_2_0Context.IndexTableSortState.NamnAscend;
+                }
+            }
+            else if (columnToSort == "Antal Fordon")
+            {
+                if (sortState == Garage_2_0Context.IndexTableSortState.AntalFordonAscend)
+                {
+                    members = members.OrderByDescending(m => m.Vehicles.Count);
+                    ViewBag.sortState = Garage_2_0Context.IndexTableSortState.AntalFordonDescend;
+                }
+                else
+                {
+                    members = members.OrderBy(m => m.Vehicles.Count);
+                    ViewBag.sortState = Garage_2_0Context.IndexTableSortState.AntalFordonAscend;
+                }
+            }
+            return View(nameof(Index), members.ToList());
+        }
 
         // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)
