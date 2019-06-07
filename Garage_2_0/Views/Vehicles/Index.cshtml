@@ -29,7 +29,7 @@
                     </th>
                     <th>
                         @*@Html.DisplayNameFor(model => model.VehicleTypeClassId)*@
-                        Fondonstyp
+                        Fordonstyp
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.RegNr)
@@ -64,10 +64,10 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.MemberId)
+                            @Html.DisplayFor(modelItem => item.Member.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.VehicleTypeClassId)
+                            @Html.DisplayFor(modelItem => item.VehicleTypeClass.Type)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.RegNr)
@@ -90,9 +90,9 @@
 
 
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Ändra</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Mera fakta</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
                         </td>
                     </tr>
                 }
