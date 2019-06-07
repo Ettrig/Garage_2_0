@@ -29,7 +29,7 @@
                     </th>
                     <th>
                         @*@Html.DisplayNameFor(model => model.VehicleTypeClassId)*@
-                        Fondonstyp
+                        Fordonstyp
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.RegNr)
@@ -67,7 +67,7 @@
                             @Html.DisplayFor(modelItem => item.MemberId)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.VehicleTypeClassId)
+                            @Html.DisplayFor(modelItem => item.VehicleTypeClass.Type)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.RegNr)
