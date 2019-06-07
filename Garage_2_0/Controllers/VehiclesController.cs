@@ -46,7 +46,7 @@ namespace Garage_2_0.Controllers
         public IActionResult Create()
         {
             var members = from m in _context.Members select m;
-            ViewBag.MemberSelectList = members.Select(m => new SelectListItem { Selected = false, Text = m.Name, Value = m.Id.ToString() }).ToList();
+            ViewBag.MemberSelectList = members.OrderBy(m=>m.Name).Select(m => new SelectListItem { Selected = false, Text = m.Name, Value = m.Id.ToString() }).ToList();
 
             var vehicleTypes = from t in _context.VehicleTypeClass select t;
             ViewBag.VehicleTypeSelectList = vehicleTypes.Select(t => new SelectListItem { Selected = false, Text = t.Type, Value = t.Id.ToString() }).ToList();
@@ -73,6 +73,11 @@ namespace Garage_2_0.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            var members = from m in _context.Members select m;
+            ViewBag.MemberSelectList = members.OrderBy(m => m.Name).Select(m => new SelectListItem { Selected = false, Text = m.Name, Value = m.Id.ToString() }).ToList();
+            var vehicleTypes = from t in _context.VehicleTypeClass select t;
+            ViewBag.VehicleTypeSelectList = vehicleTypes.Select(t => new SelectListItem { Selected = false, Text = t.Type, Value = t.Id.ToString() }).ToList();
             return View(vehicle);
         }
 
