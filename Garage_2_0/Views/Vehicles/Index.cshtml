@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Garage_2_0.Models.Vehicle>
-
+﻿@model IEnumerable<Garage_2_0.ViewModels.VehiclesViewModel>
 @{
     ViewData["Title"] = "Index";
+}
 }
 
 <h1>Lista över parkerade fordon</h1>
@@ -51,8 +51,8 @@
                         Antal hjul
                     </th>
                     <th>
-                        @*@Html.DisplayNameFor(model => model.ParkedIn)*@
-                        Parkering påbörjad
+                        @*@Html.DisplayNameFor(model => model.)*@
+                        Parkeringstid minuter
                     </th>
 
 
@@ -64,7 +64,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Member.Name)
+                            @Html.DisplayFor(modelItem => item.MemberName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.VehicleTypeClass.Type)
@@ -85,7 +85,7 @@
                             @Html.DisplayFor(modelItem => item.NoWheels)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ParkedIn)
+                            @Html.DisplayFor(modelItem => item.ParkingTime)
                         </td>
 
 
