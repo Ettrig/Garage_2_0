@@ -23,10 +23,10 @@
     <thead>
         <tr>
             <th>
-                @Html.ActionLink("Namn", "IndexSort", new { sortOrder = ViewBag.NamnSortParm })
+                @Html.ActionLink("Namn", "Index1", new { tableToSort = "Namn", sortState = ViewBag.sortState } )
             </th>
             <th>
-                Antal fordon
+                @Html.ActionLink("Antal Fordon", "Index1", new { tableToSort = "Antal Fordon", sortState = ViewBag.sortState } )
             </th>
         </tr>
     </thead>
