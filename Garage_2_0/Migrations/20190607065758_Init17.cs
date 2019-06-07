@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Garage_2_0.Migrations
 {
-    public partial class Init : Migration
+    public partial class Init17 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
