@@ -16,7 +16,7 @@ namespace Garage_2_0.Data
 
             using (var context = new Garage_2_0Context(options))
             {
-                if (context.Members.Any())
+                if (context.Members.Any() && context.Vehicles.Any() && context.VehicleTypeClass.Any())
                 {
                     return;
                 }
