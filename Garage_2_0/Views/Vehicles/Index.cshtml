@@ -4,74 +4,97 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Parkerade fordon</h1>
+<h1>Lista över parkerade fordon</h1>
+
+<form asp-action="Index" method="post">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="searchTerm" placeholder="Sök på hela eller del av registreringsnumret" />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary"> Sök </button>
+        </div>
+    </div>
+</form>
+
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Parkera fordon</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RegNr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Brand)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NoWheels)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParkedIn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemberId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VehicleTypeClassId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RegNr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NoWheels)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParkedIn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemberId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VehicleTypeClassId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                                  
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.MemberId)*@
+                        Ägare
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.VehicleTypeClassId)*@
+                        Fondonstyp
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegNr)
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Color)*@
+                        Färg
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Brand)*@
+                        Märke
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Model)*@
+                        Model
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.NoWheels)*@
+                        Antal hjul
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.ParkedIn)*@
+                        Parkering påbörjad
+                    </th>
+
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MemberId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VehicleTypeClassId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RegNr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoWheels)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParkedIn)
+                        </td>
+
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>

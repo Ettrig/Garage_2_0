@@ -21,7 +21,8 @@ namespace Garage_2_0.Controllers
         // GET: Vehicles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vehicles.ToListAsync());
+            return View(await _context.Vehicles.Include(v => v.VehicleTypeClass).ToListAsync());
+
         }
 
         // GET: Vehicles/Details/5
@@ -53,7 +54,8 @@ namespace Garage_2_0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NoWheels,ParkedIn,MemberId,VehicleTypeClassId")] Vehicle vehicle)
+        //public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NoWheels,ParkedIn,MemberId,VehicleTypeClassId")] Vehicle vehicle)
+              public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NoWheels,MemberId,VehicleTypeClassId")] Vehicle vehicle)
         {
            
             if (RegNoIsParked(vehicle.RegNr))
@@ -62,6 +64,7 @@ namespace Garage_2_0.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(vehicle);
+                vehicle.ParkedIn = DateTime.Now;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
