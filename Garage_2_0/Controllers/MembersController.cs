@@ -21,9 +21,25 @@ namespace Garage_2_0.Controllers
         // GET: Members
         public async Task<IActionResult> Index()
         {
-                return View(await _context.Members
-                    .Include(m => m.Vehicles)
-                    .ToListAsync());
+            return View(await _context.Members
+                .Include(m => m.Vehicles)
+                .ToListAsync());
+        }
+
+        public ActionResult IndexSort(string sortOrder)            // sort columns ascendiong/descending
+        {
+            ViewBag.NamnSortParm = String.IsNullOrEmpty(sortOrder) ? "Namn" : "";
+
+            var members = from m in _context.Members select m;
+
+            switch (sortOrder)
+            {
+                case "Namn":
+                    members = members.OrderBy(m => m.Name);
+                    break;
+                    //Vi behöver också sortera på antalet fordon
+            }
+            return View(nameof(Index), members.Include(m => m.Vehicles).ToList());
         }
 
         // GET: RegNr                                           // sökning regnr, searchTerm innehåller sökvärdet, funktionen anropas från index.cshtml
@@ -38,8 +54,6 @@ namespace Garage_2_0.Controllers
                 .ToList();
             return View(model);
         }
-
-
 
         // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)

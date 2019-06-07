@@ -23,7 +23,7 @@
     <thead>
         <tr>
             <th>
-                Namn
+                @Html.ActionLink("Namn", "IndexSort", new { sortOrder = ViewBag.NamnSortParm })
             </th>
             <th>
                 Antal fordon
