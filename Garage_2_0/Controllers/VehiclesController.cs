@@ -21,9 +21,7 @@ namespace Garage_2_0.Controllers
         // GET: Vehicles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vehicles.Include(v => v.VehicleTypeClass).ToListAsync());
-          
-
+            return View(await _context.Vehicles.Include(v => v.VehicleTypeClass).Include(m => m.Member).ToListAsync());
         }
 
         // GET: Vehicles/Details/5
