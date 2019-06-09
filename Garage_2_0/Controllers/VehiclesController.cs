@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage_2_0.Models;
+using Garage_2_0.ViewModels;
 
 namespace Garage_2_0.Controllers
 {
@@ -21,7 +22,22 @@ namespace Garage_2_0.Controllers
         // GET: Vehicles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vehicles.Include(v => v.VehicleTypeClass).Include(m => m.Member).ToListAsync());
+            var model = await _context.Vehicles.Include(v => v.VehicleTypeClass).Select(v => new VehiclesViewModel
+            {
+                Id = v.Id,
+                MemberName = v.Member.Name,
+                Brand = v.Brand,
+                Color = v.Color,
+                Model = v.Model,
+                ParkingTime = Extensions.VehicleExtension.ParkingTime(v),
+                NoWheels = v.NoWheels,
+                RegNr = v.RegNr,
+                VehicleTypeClass = v.VehicleTypeClass,
+                SearchTerm = ""
+            }).ToListAsync();
+
+            return View(model);
+
         }
 
         // GET: Vehicles/Details/5
@@ -59,17 +75,15 @@ namespace Garage_2_0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NoWheels,ParkedIn,MemberId,VehicleTypeClassId")] Vehicle vehicle)
-              public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NoWheels,MemberId,VehicleTypeClassId")] Vehicle vehicle)
+        public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NoWheels,MemberId,VehicleTypeClassId")] Vehicle vehicle)
         {
-           
             if (RegNoIsParked(vehicle.RegNr))
                 ModelState.AddModelError("RegNr", "Det finns redan ett fordon med det här registreringsnumret i garaget");
 
             if (ModelState.IsValid)
             {
-                _context.Add(vehicle);
                 vehicle.ParkedIn = DateTime.Now;
+                _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

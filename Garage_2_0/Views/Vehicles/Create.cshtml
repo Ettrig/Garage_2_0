@@ -37,11 +37,11 @@
                 <input asp-for="NoWheels" class="form-control" />
                 <span asp-validation-for="NoWheels" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="ParkedIn" class="control-label">Start parkering</label>
                 <input asp-for="ParkedIn" class="form-control" />
                 <span asp-validation-for="ParkedIn" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="MemberId" class="control-label">Ägare</label>
                 <select asp-for="MemberId" class="form-control" asp-items="ViewBag.MemberSelectList"></select>
