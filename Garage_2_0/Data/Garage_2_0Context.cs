@@ -14,7 +14,10 @@ namespace Garage_2_0.Models
         {
         }
 
-        public enum IndexTableSortState { NamnAscend, NamnDescend, AntalFordonAscend, AntalFordonDescend };
+        public enum MembersSortState { NamnAscend, NamnDescend, AntalFordonAscend, AntalFordonDescend };
+        public enum VehiclesSortState { MemberAscend,  TypeAscend,  RegNrAscend,  ColorAscend,  BrandAscend,  ModelAscend,  NoWheelsAscend,  ParkingTimeAscend,
+                                        MemberDescend, TypeDescend, RegNrDescend, ColorDescend, BrandDescend, ModelDescend, NoWheelsDescend, ParkingTimeDescend
+        };
 
         //protected override void  OnModelCreating(ModelBuilder modelBuilder)
         //{
