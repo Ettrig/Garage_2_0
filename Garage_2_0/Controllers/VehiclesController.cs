@@ -329,6 +329,35 @@ namespace Garage_2_0.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: Vehicles/Delete/5
+        public async Task<IActionResult> CheckOut(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var vehicle = await _context.Vehicles
+                .Include( v => v.Member )
+                .Include( v => v.VehicleTypeClass)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new CheckoutViewModel();
+            viewModel.Member = vehicle.Member.Name;
+            viewModel.ParkedIn = vehicle.ParkedIn;
+            viewModel.ParkedOut = DateTime.Now;
+            viewModel.RegNr = vehicle.RegNr;
+            viewModel.TotalMinutes = Extensions.VehicleExtension.ParkingTime(vehicle);
+            viewModel.Price = vehicle.VehicleTypeClass.Price;
+            viewModel.Cost = viewModel.TotalMinutes * viewModel.Price; 
+
+            return View(viewModel);
+        }
+
         private bool VehicleExists(int id)
         {
             return _context.Vehicles.Any(e => e.Id == id);

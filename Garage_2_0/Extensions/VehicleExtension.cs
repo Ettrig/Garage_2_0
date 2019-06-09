@@ -10,7 +10,7 @@ namespace Garage_2_0.Extensions
     {
         public static int ParkingTime(this Vehicle vehicle)
         {
-            var totalTime = (DateTime.Now - vehicle.ParkedIn).Minutes;
+            var totalTime = (int) (DateTime.Now - vehicle.ParkedIn).TotalMinutes;
             return totalTime;
         }
     }
