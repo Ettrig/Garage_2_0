@@ -34,10 +34,130 @@ namespace Garage_2_0.Controllers
                 RegNr = v.RegNr,
                 VehicleTypeClass = v.VehicleTypeClass,
                 SearchTerm = ""
-            }).ToListAsync();
+            }).OrderBy( v => v.RegNr ).ToListAsync();
+
+            ViewBag.sortState = Garage_2_0Context.VehiclesSortState.RegNrAscend;
 
             return View(model);
 
+        }
+
+        public ActionResult Index1(string columnToSort, Garage_2_0Context.VehiclesSortState sortState)            // sort columns ascendiong/descending
+        {
+            var model = _context.Vehicles.Include(v => v.VehicleTypeClass).Select(v => new VehiclesViewModel
+            {
+                Id = v.Id,
+                MemberName = v.Member.Name,
+                Brand = v.Brand,
+                Color = v.Color,
+                Model = v.Model,
+                ParkingTime = Extensions.VehicleExtension.ParkingTime(v),
+                NoWheels = v.NoWheels,
+                RegNr = v.RegNr,
+                VehicleTypeClass = v.VehicleTypeClass,
+                SearchTerm = ""
+            });
+
+            switch (columnToSort)
+            {
+                case "Member":
+                    if (sortState == Garage_2_0Context.VehiclesSortState.MemberAscend)
+                    {
+                        model = model.OrderByDescending(v => v.MemberName);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.MemberDescend;
+                    }
+                    else
+                    {
+                        model = model.OrderBy(v => v.MemberName);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.MemberAscend;
+                    }
+                    break;
+                case "Type":
+                    if (sortState == Garage_2_0Context.VehiclesSortState.TypeAscend)
+                    {
+                        model = model.OrderByDescending(v => v.VehicleTypeClass.Type);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.TypeDescend;
+                    }
+                    else
+                    {
+                        model = model.OrderBy(v => v.VehicleTypeClass.Type);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.TypeAscend;
+                    }
+                    break;
+                case "RegNr":
+                    if (sortState == Garage_2_0Context.VehiclesSortState.RegNrAscend)
+                    {
+                        model = model.OrderByDescending(v => v.RegNr);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.RegNrDescend;
+                    }
+                    else
+                    {
+                        model = model.OrderBy(v => v.RegNr);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.RegNrAscend;
+                    }
+                    break;
+                case "Color":
+                    if (sortState == Garage_2_0Context.VehiclesSortState.ColorAscend)
+                    {
+                        model = model.OrderByDescending(v => v.Color);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.ColorDescend;
+                    }
+                    else
+                    {
+                        model = model.OrderBy(v => v.Color);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.ColorAscend;
+                    }
+                    break;
+                case "Brand":
+                    if (sortState == Garage_2_0Context.VehiclesSortState.BrandAscend)
+                    {
+                        model = model.OrderByDescending(v => v.Brand);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.BrandDescend;
+                    }
+                    else
+                    {
+                        model = model.OrderBy(v => v.Brand);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.BrandAscend;
+                    }
+                    break;
+                case "Model":
+                    if (sortState == Garage_2_0Context.VehiclesSortState.ModelAscend)
+                    {
+                        model = model.OrderByDescending(v => v.Model);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.ModelDescend;
+                    }
+                    else
+                    {
+                        model = model.OrderBy(v => v.Model);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.ModelAscend;
+                    }
+                    break;
+                case "NoWheels":
+                    if (sortState == Garage_2_0Context.VehiclesSortState.NoWheelsAscend)
+                    {
+                        model = model.OrderByDescending(v => v.NoWheels);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.NoWheelsDescend;
+                    }
+                    else
+                    {
+                        model = model.OrderBy(v => v.NoWheels);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.NoWheelsAscend;
+                    }
+                    break;
+                case "ParkingTime":
+                    if (sortState == Garage_2_0Context.VehiclesSortState.ParkingTimeAscend)
+                    {
+                        model = model.OrderByDescending(v => v.ParkingTime);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.ParkingTimeDescend;
+                    }
+                    else
+                    {
+                        model = model.OrderBy(v => v.ParkingTime);
+                        ViewBag.sortState = Garage_2_0Context.VehiclesSortState.ParkingTimeAscend;
+                    }
+                    break;
+            }   
+            return View(nameof(Index), model.ToList());
         }
 
         // GET: Vehicles/Details/5
