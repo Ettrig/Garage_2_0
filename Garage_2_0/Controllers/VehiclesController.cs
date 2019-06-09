@@ -42,6 +42,35 @@ namespace Garage_2_0.Controllers
 
         }
 
+        // POST: Search for RegNr                             // sökning regnr, searchTerm innehåller sökvärdet, funktionen anropas från index.cshtml
+        [HttpPost]
+        public ActionResult Index(string searchTerm = null)
+        {
+            var model = _context.Vehicles
+                .Include(v => v.VehicleTypeClass)
+                .Select(v => new VehiclesViewModel
+                    {
+                        Id = v.Id,
+                        MemberName = v.Member.Name,
+                        Brand = v.Brand,
+                        Color = v.Color,
+                        Model = v.Model,
+                        ParkingTime = Extensions.VehicleExtension.ParkingTime(v),
+                        NoWheels = v.NoWheels,
+                        RegNr = v.RegNr,
+                        VehicleTypeClass = v.VehicleTypeClass,
+                        SearchTerm = ""
+                    })
+                .Where(v => searchTerm == null || v.RegNr.StartsWith(searchTerm) || v.RegNr.Contains(searchTerm))
+                .OrderBy(v => v.RegNr)
+                .ToList();
+
+            ViewBag.sortState = Garage_2_0Context.VehiclesSortState.RegNrAscend;
+
+            return View(model);
+        }
+
+
         public ActionResult Index1(string columnToSort, Garage_2_0Context.VehiclesSortState sortState)            // sort columns ascendiong/descending
         {
             var model = _context.Vehicles.Include(v => v.VehicleTypeClass).Select(v => new VehiclesViewModel
