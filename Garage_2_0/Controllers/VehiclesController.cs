@@ -368,6 +368,7 @@ namespace Garage_2_0.Controllers
             var viewModel = new CheckoutViewModel();
             viewModel.Id = vehicle.Id; 
             viewModel.Member = vehicle.Member.Name;
+            viewModel.VehicleType = vehicle.VehicleTypeClass.Type;
             viewModel.ParkedIn = vehicle.ParkedIn;
             viewModel.ParkedOut = DateTime.Now;
             viewModel.RegNr = vehicle.RegNr;
