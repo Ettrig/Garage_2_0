@@ -318,6 +318,25 @@ namespace Garage_2_0.Controllers
             return View(vehicle);
         }
 
+        // GET: Vehicles/Delete/5
+        public async Task<IActionResult> CheckOutRemove(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var vehicle = await _context.Vehicles
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            return View(vehicle);
+        }
+
+
         // POST: Vehicles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -347,6 +366,7 @@ namespace Garage_2_0.Controllers
             }
 
             var viewModel = new CheckoutViewModel();
+            viewModel.Id = vehicle.Id; 
             viewModel.Member = vehicle.Member.Name;
             viewModel.ParkedIn = vehicle.ParkedIn;
             viewModel.ParkedOut = DateTime.Now;

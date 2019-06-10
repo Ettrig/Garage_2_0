@@ -7,6 +7,7 @@ namespace Garage_2_0.ViewModels
 {
     public class CheckoutViewModel
     {
+        public int Id { get; set; }
         public string Member { get; set; }
         public string RegNr { get; set; }
         public DateTime ParkedIn { get; set; }

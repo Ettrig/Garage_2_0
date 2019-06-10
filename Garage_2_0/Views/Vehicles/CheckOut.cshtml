@@ -10,51 +10,54 @@
     <h4>Checka ut Fordon</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Medlemmens namn
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Member)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Fordonets registreringsnummer
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RegNr)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Tiden som fordonet ställdes in
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ParkedIn)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Tiden som fordonet togs ut
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ParkedOut)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Totalt antal minuter
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TotalMinutes)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Pris per minut
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Price)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Total parkeringskostnad att betala
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Cost)
         </dd>
     </dl>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Verkligen ta ut fordonet" class="btn btn-danger" /> |
+    <a asp-action="Index">Tillbaka till fordonslistan</a>
+</form>
+
