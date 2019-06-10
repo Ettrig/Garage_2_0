@@ -44,14 +44,14 @@
                 <span asp-validation-for="ParkedIn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MemberId" class="control-label">Ägare</label>
-                <input asp-for="MemberId" class="form-control" />
-                <span asp-validation-for="MemberId" class="text-danger"></span>
+                <label asp-for="Member.Name" class="control-label">Ägare</label>
+                <input asp-for="Member.Name" class="form-control" />
+                <span asp-validation-for="Member.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VehicleTypeClassId" class="control-label">Fordonstyp</label>
-                <input asp-for="VehicleTypeClassId" class="form-control" />
-                <span asp-validation-for="VehicleTypeClassId" class="text-danger"></span>
+                <label asp-for="VehicleTypeClass.Type" class="control-label">Fordonstyp</label>
+                <input asp-for="VehicleTypeClass.Type" class="form-control" />
+                <span asp-validation-for="VehicleTypeClass.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Spara ändringar" class="btn btn-primary" />
