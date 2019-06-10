@@ -199,6 +199,7 @@ namespace Garage_2_0.Controllers
 
             var vehicle = await _context.Vehicles
                 .Include( v => v.Member)
+                .Include( v => v.VehicleTypeClass)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vehicle == null)
             {
