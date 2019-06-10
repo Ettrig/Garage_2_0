@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage_2_0.Migrations
 {
     [DbContext(typeof(Garage_2_0Context))]
-    [Migration("20190607070711_Init")]
+    [Migration("20190610090006_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,19 +55,27 @@ namespace Garage_2_0.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Brand");
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasMaxLength(40);
 
-                    b.Property<string>("Color");
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<int>("MemberId");
 
-                    b.Property<string>("Model");
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<int>("NoWheels");
 
                     b.Property<DateTime>("ParkedIn");
 
-                    b.Property<string>("RegNr");
+                    b.Property<string>("RegNr")
+                        .IsRequired()
+                        .HasMaxLength(6);
 
                     b.Property<int>("VehicleTypeClassId");
 
