@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Ändra parkerinsdetaljer</h1>
+<h1>Ändra parkeringsdetaljer</h1>
 
 <h4>Fordon</h4>
 <hr />
@@ -39,8 +39,8 @@
                 <span asp-validation-for="NoWheels" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ParkedIn" class="control-label">Pakerad påbörjad</label>
-                <input asp-for="ParkedIn" class="form-control" />
+                <label asp-for="ParkedIn" class="control-label">Parkering påbörjad</label>
+                <label class="form-control">@Model.ParkedIn</label>
                 <span asp-validation-for="ParkedIn" class="text-danger"></span>
             </div>
             <div class="form-group">

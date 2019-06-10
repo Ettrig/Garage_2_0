@@ -15,9 +15,9 @@ namespace Garage_2_0.Models
         public string Model { get; set; }
         public int NoWheels { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(Name = "Parkering påbörjad")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh:mm:ss}")]
+        [DataType(DataType.DateTime)]
+        //[Display(Name = "Parkering påbörjad")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}")]
         public DateTime ParkedIn { get; set; }
         
         public int MemberId { get; set; }
