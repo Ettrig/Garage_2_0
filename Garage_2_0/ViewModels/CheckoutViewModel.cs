@@ -9,6 +9,7 @@ namespace Garage_2_0.ViewModels
     {
         public int Id { get; set; }
         public string Member { get; set; }
+        public string VehicleType { get; set; }
         public string RegNr { get; set; }
         public DateTime ParkedIn { get; set; }
         public DateTime ParkedOut { get; set; }
