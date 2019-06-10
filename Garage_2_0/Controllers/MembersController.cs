@@ -56,7 +56,7 @@ namespace Garage_2_0.Controllers
             return View(model);
         }
 
-        public ActionResult Index1(string columnToSort, Garage_2_0Context.IndexTableSortState sortState )            // sort columns ascendiong/descending
+        public ActionResult Index1(string columnToSort, Garage_2_0Context.MembersSortState sortState )            // sort columns ascendiong/descending
         {
 
             var members = from m in _context.Members select m;
@@ -64,28 +64,28 @@ namespace Garage_2_0.Controllers
 
             if (columnToSort == "Namn")
             {
-                if (sortState == Garage_2_0Context.IndexTableSortState.NamnAscend)
+                if (sortState == Garage_2_0Context.MembersSortState.NamnAscend)
                 {
                     members = members.OrderByDescending(m => m.Name);
-                    ViewBag.sortState = Garage_2_0Context.IndexTableSortState.NamnDescend;
+                    ViewBag.sortState = Garage_2_0Context.MembersSortState.NamnDescend;
                 }
                 else
                 {
                     members = members.OrderBy(m => m.Name);
-                    ViewBag.sortState = Garage_2_0Context.IndexTableSortState.NamnAscend;
+                    ViewBag.sortState = Garage_2_0Context.MembersSortState.NamnAscend;
                 }
             }
             else if (columnToSort == "Antal Fordon")
             {
-                if (sortState == Garage_2_0Context.IndexTableSortState.AntalFordonAscend)
+                if (sortState == Garage_2_0Context.MembersSortState.AntalFordonAscend)
                 {
                     members = members.OrderByDescending(m => m.Vehicles.Count);
-                    ViewBag.sortState = Garage_2_0Context.IndexTableSortState.AntalFordonDescend;
+                    ViewBag.sortState = Garage_2_0Context.MembersSortState.AntalFordonDescend;
                 }
                 else
                 {
                     members = members.OrderBy(m => m.Vehicles.Count);
-                    ViewBag.sortState = Garage_2_0Context.IndexTableSortState.AntalFordonAscend;
+                    ViewBag.sortState = Garage_2_0Context.MembersSortState.AntalFordonAscend;
                 }
             }
             return View(nameof(Index), members.ToList());
