@@ -21,7 +21,8 @@ namespace Garage_2_0.Models
         [Required(ErrorMessage = "Skriv in bilens modell")]
         [StringLength(20)]
         public string Model { get; set; }
-        [Range(0, 40)]
+        [Required(ErrorMessage = "Ange antalet hjul")]
+        [Range(0, 40, ErrorMessage = "Antalet hjul måste vara ett tal mellan 0 och 40")]
         public int NoWheels { get; set; }
 
         [DataType(DataType.Date)]
