@@ -4,20 +4,22 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detaljvy</h1>
 
 <div>
-    <h4>VehicleTypeClass</h4>
+    <h4>Fordonstyp</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
+            @*@Html.DisplayNameFor(model => model.Type)*@
+            Fordonstyp
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Type)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            @*@Html.DisplayNameFor(model => model.Price)*@
+            Pris/minut
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Price)
@@ -25,6 +27,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Ändra</a> |
+    <a asp-action="Index">Tillbaka till fordonstyplistan</a>
 </div>
