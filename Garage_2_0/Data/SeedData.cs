@@ -38,7 +38,7 @@ namespace Garage_2_0.Data
 
 
                 // Populate VehicleTypeClass
-                var types = new Dictionary<string, int>() { { "Bil", 50 }, { "Motorcykel", 20 }, { "Båt", 100 }, { "Flygplan", 1000 }, { "Buss", 400 } };
+                var types = new Dictionary<string, int>() { { "Bil", 2 }, { "Motorcykel", 1 }, { "Båt", 10 }, { "Flygplan", 100 }, { "Buss", 20 } };
                 var vehicleTypeClasses = new List<VehicleTypeClass>();
 
                 foreach (var type in types)
