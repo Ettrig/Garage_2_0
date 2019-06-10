@@ -44,13 +44,11 @@
             </div>*@
             <div class="form-group">
                 <label asp-for="MemberId" class="control-label">Ägare</label>
-                @*<input asp-for="MemberId" class="form-control" />                   //input ersätts av dropdown - select value*@
                 <select asp-for="MemberId" class="form-control" asp-items="ViewBag.MemberSelectList"></select>
                 <span asp-validation-for="MemberId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="VehicleTypeClassId" class="control-label">Fordonstyp</label>
-                @*<input asp-for="VehicleTypeClassId" class="form-control" />         //input ersätts av dropdown - select value*@
                 <select asp-for="VehicleTypeClassId" class="form-control" asp-items="ViewBag.VehicleTypeSelectList"></select>
                 <span asp-validation-for="VehicleTypeClassId" class="text-danger"></span>
 

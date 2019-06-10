@@ -2,23 +2,23 @@
 @model Garage_2_0.Models.Member
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "´Detaljvy";
 }
 
-<h1>Details</h1>
+<h1>Detaljvy</h1>
 
 <div>
-    <h4>Member</h4>
+    <h4>Medlem</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+           Medlem
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
 
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Vehicles)</dt>
+        <dt class="col-sm-2">Fordon</dt>
         <dd class="col-md-10">
             @foreach (var vehicle in Model.Vehicles)
             {
@@ -31,6 +31,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Ändra</a> |
+    <a asp-action="Index">Tillbaka till medlemslistan</a>
 </div>
