@@ -53,13 +53,19 @@ namespace Garage_2_0.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Brand");
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasMaxLength(40);
 
-                    b.Property<string>("Color");
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<int>("MemberId");
 
-                    b.Property<string>("Model");
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<int>("NoWheels");
 

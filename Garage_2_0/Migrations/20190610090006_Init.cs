@@ -55,10 +55,10 @@ namespace Garage_2_0.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RegNr = table.Column<string>(nullable: true),
-                    Color = table.Column<string>(nullable: true),
-                    Brand = table.Column<string>(nullable: true),
-                    Model = table.Column<string>(nullable: true),
+                    RegNr = table.Column<string>(maxLength: 6, nullable: false),
+                    Color = table.Column<string>(maxLength: 20, nullable: false),
+                    Brand = table.Column<string>(maxLength: 40, nullable: false),
+                    Model = table.Column<string>(maxLength: 20, nullable: false),
                     NoWheels = table.Column<int>(nullable: false),
                     ParkedIn = table.Column<DateTime>(nullable: false),
                     MemberId = table.Column<int>(nullable: false),

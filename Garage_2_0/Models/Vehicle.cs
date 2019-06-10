@@ -12,8 +12,14 @@ namespace Garage_2_0.Models
         [Required(ErrorMessage = "Registreringsnummer krävs, max 6 tecken")]
         [StringLength(6)]
         public string RegNr { get; set; }
+        [Required(ErrorMessage = "Skriv in bilens färg")]
+        [StringLength(20)]
         public string Color { get; set; }
+        [Required(ErrorMessage = "Skriv in bilens märke")]
+        [StringLength(40)]
         public string Brand { get; set; }
+        [Required(ErrorMessage = "Skriv in bilens modell")]
+        [StringLength(20)]
         public string Model { get; set; }
         [Range(0, 40)]
         public int NoWheels { get; set; }
