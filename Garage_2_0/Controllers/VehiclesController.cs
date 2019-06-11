@@ -280,13 +280,16 @@ namespace Garage_2_0.Controllers
                 return NotFound();
             }
 
+            if (RegNoIsDuplicate(vehicle.RegNr, vehicle.Id))
+                ModelState.AddModelError("RegNr", "Det finns redan ett fordon med det här registreringsnumret i garaget");
+
             if (ModelState.IsValid)
             {
-                _context.Entry(vehicle).State = EntityState.Modified;
-                _context.Entry(vehicle).Property(v => v.ParkedIn).IsModified = false;
+
                 try
                 {
                     _context.Update(vehicle);
+                    _context.Entry(vehicle).Property(v => v.ParkedIn).IsModified = false;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -388,9 +391,15 @@ namespace Garage_2_0.Controllers
         {
             return _context.Vehicles.Any(e => e.Id == id);
         }
+
         private bool RegNoIsParked(string license)
         {
             return _context.Vehicles.Any(v => v.RegNr == license);
+        }
+
+        private bool RegNoIsDuplicate(string license, int id)
+        {
+            return _context.Vehicles.Any(v => v.RegNr == license && v.Id != id);
         }
     }
 }
