@@ -278,6 +278,8 @@ namespace Garage_2_0.Controllers
 
             if (ModelState.IsValid)
             {
+                _context.Entry(vehicle).State = EntityState.Modified;
+                _context.Entry(vehicle).Property(v => v.ParkedIn).IsModified = false;
                 try
                 {
                     _context.Update(vehicle);
