@@ -256,7 +256,11 @@ namespace Garage_2_0.Controllers
                 return NotFound();
             }
 
-            var vehicle = await _context.Vehicles.FindAsync(id);
+            //var vehicle = await _context.Vehicles.FindAsync(id);
+            var vehicle = await _context.Vehicles
+               .Include(v => v.Member)
+               .Include(v => v.VehicleTypeClass)
+               .FirstOrDefaultAsync(m => m.Id == id);
             if (vehicle == null)
             {
                 return NotFound();
@@ -269,7 +273,7 @@ namespace Garage_2_0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RegNr,Color,Brand,Model,NoWheels,MemberId,VehicleTypeClassId")] Vehicle vehicle)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RegNr,Color,Brand,Model,NoWheels,ParkedIn,Member,VehicleTypeClass")] Vehicle vehicle)
         {
             if (id != vehicle.Id)
             {
